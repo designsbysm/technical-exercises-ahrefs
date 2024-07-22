@@ -1,0 +1,27 @@
+{
+  "name": "ahrefs",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "preinstall:opam": "opam update",
+    "install:opam": "opam install -y . --deps-only --with-test",
+    "check-npm-deps": "opam exec opam-check-npm-deps",
+    "install:npm-opam": "npm install && npm run install:opam && npm run check-npm-deps",
+    "init": "opam switch create . 5.2.0 -y --deps-only && npm run install:npm-opam",
+    "build": "dune build",
+    "start": "dune build && concurrently 'npm:vite-dev' 'npm:dune-watch'",
+    "dune-watch": "dune build -w",
+    "serve": "dune build && vite preview",
+    "vite-dev": "vite _build/default"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "concurrently": "^8.2.2",
+    "vite": "^4.5.0",
+    "vite-plugin-melange": "^2.2.0"
+  }
+}
