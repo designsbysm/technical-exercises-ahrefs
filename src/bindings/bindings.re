@@ -4,9 +4,9 @@
  * similar to 'exporting' in JavaScript or TypeScript, where you can re-export
  * something from another module.
  *
- * Here, `module Browser = Browser;` within `src/bindings/bindings.re` is
- * re-exporting the `Browser` module. It makes `Browser` accessible as part of
- * the `Bindings` module. This is particularly useful in ReasonMl/Dune for
+ * Here, `module Fetch = Fetch;` within `src/bindings/Fetch.re` is
+ * re-exporting the `Fetch` module. It makes `Fetch` accessible as part of
+ * the `Fetch` module. This is particularly useful in ReasonMl/Dune for
  * organizing code and creating clear module hierarchies or APIs.
  *
  * This approach is beneficial in ReasonML/Dune for structuring code more
@@ -19,4 +19,4 @@
  * this pattern is often used to expose certain modules at a higher level for
  * easier access by other parts of the application.
  */
-module Browser = Browser;
+module Fetch = Fetch;

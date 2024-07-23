@@ -20,6 +20,6 @@
 (library
  (name bindings)
  (modes melange)
- (libraries melange.js melange.node melange.dom)
+ (libraries melange.js)
  (preprocess
   (pps melange.ppx)))
