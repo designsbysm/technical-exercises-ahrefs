@@ -1,6 +1,11 @@
 module App = {
   [@react.component]
-  let make = () => <> {"TODO" |> React.string} </>;
+  let make = () =>
+    <CountrySelect
+      className="custom-class"
+      country={Some("us")}
+      onChange={country => country |> Js.log}
+    />;
 };
 
 ReactDOM.querySelector("#root")
