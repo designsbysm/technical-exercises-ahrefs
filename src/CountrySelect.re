@@ -31,47 +31,44 @@ let make =
 
     Js.Dict.set(obj, "DropdownIndicator", React.null);
     Js.Dict.set(obj, "IndicatorSeparator", React.null);
-    Js.Dict.set(obj, "Option", <Components.Option />);
+    // Js.Dict.set(obj, "Option", <Components.Option />);
 
     Obj.magic(obj);
   };
 
   let target =
-    <Components.CountrySelect.Button
-      selected
-      onClick={_ => setIsOpen(prev => !prev)}
-    />;
+    <Components.CountrySelect.Button onClick={_ => setIsOpen(prev => !prev)}>
+      {selected
+       |> (
+         fun
+         | Some({label, value, _}) =>
+           <Components.CountrySelect.Country label value />
+         | None => "Select a Country" |> React.string
+       )}
+    </Components.CountrySelect.Button>;
 
-  <div className>
-    <Bindings.ReactSelect.Select
+  <Components.CountrySelect.Dropdown
+    className isOpen onClose={_ => setIsOpen(_ => false)} target>
+    <Components.CountrySelect.Select
+      autoFocus=true
+      components
+      // backspaceRemovesValue=false
+      controlShouldRenderValue=false
+      // hideSelectedOptions=false
+      // isClearable=false
+      formatOptionLabel={({amount, label, value}: Types.Country.t) =>
+        <Components.CountrySelect.Country amount label value />
+      }
+      menuIsOpen=true
       onChange={selected => {
         setSelected(_ => selected |> Option.some);
+        setIsOpen(_ => false);
         selected |> onChange;
       }}
       options={countries |> Array.of_list}
       placeholder="Search..."
+      // unstyled=true
       value=selected
     />
-    <Components.CountrySelect.Dropdown
-      isOpen onClose={_ => setIsOpen(_ => false)} target>
-      <Bindings.ReactSelect.Select
-        autoFocus=true
-        components
-        // backspaceRemovesValue=false
-        controlShouldRenderValue=false
-        // hideSelectedOptions=false
-        // isClearable=false
-        menuIsOpen=true
-        onChange={selected => {
-          setSelected(_ => selected |> Option.some);
-          setIsOpen(_ => false);
-          selected |> onChange;
-        }}
-        options={countries |> Array.of_list}
-        placeholder="Search..."
-        // unstyled=true
-        value=selected
-      />
-    </Components.CountrySelect.Dropdown>
-  </div>;
+  </Components.CountrySelect.Dropdown>;
 };

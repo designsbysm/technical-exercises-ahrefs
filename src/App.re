@@ -3,7 +3,7 @@ module App = {
   let make = () =>
     <CountrySelect
       className="custom-class"
-      country={Some("us")}
+      country={Some("gs")}
       onChange={country => country |> Js.log}
     />;
 };

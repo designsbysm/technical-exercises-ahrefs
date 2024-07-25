@@ -1,18 +1,29 @@
-let style = ReactDOM.Style.make(~padding="4px", ~width="100%", ());
+module Styles = {
+  let arrow =
+    ReactDOM.Style.make(~height="100%", ~marginLeft="5px", ~width="14px", ());
 
-// [ ] don't pass in selected?
+  let country = ReactDOM.Style.make(~minWidth="100px", ());
+
+  let button =
+    ReactDOM.Style.make(
+      ~alignItems="center",
+      ~backgroundColor="#fff",
+      ~borderColor="rgba(0, 0, 0, 0.2)",
+      ~borderRadius="3px",
+      ~borderWidth="1px",
+      ~display="flex",
+      ~fontSize="14px",
+      // ~justifyContent="space-between",
+      ~padding="4px",
+      ~textAlign="left",
+      // ~width="100%",
+      (),
+    );
+};
+
 [@react.component]
-let make =
-    (
-      ~onClick: React.Event.Mouse.t => unit,
-      ~selected: option(Types.Country.t),
-    ) =>
-  <button onClick style>
-    {selected
-     |> (
-       fun
-       | Some({label, value, _}) => <Country label value />
-       | None => "Select a Country" |> React.string
-     )}
-    <Icons.DownArrow />
+let make = (~children: React.element, ~onClick: React.Event.Mouse.t => unit) =>
+  <button onClick style=Styles.button>
+    <div style=Styles.country> children </div>
+    <div style=Styles.arrow> <Icons.DownArrow /> </div>
   </button>;

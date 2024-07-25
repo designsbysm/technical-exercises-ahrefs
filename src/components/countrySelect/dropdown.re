@@ -1,22 +1,23 @@
-let style = ReactDOM.Style.make(~position="relative", ());
+let style = ReactDOM.Style.make();
+// ~position="relative", ()
 
 [@react.component]
 let make =
     (
       ~children: React.element,
+      ~className: string,
       ~isOpen: bool,
       ~onClose: React.Event.Mouse.t => unit,
       ~target: React.element,
     ) =>
-  <div style>
+  <div className style>
     target
     {isOpen
      |> (
        fun
        | true =>
          <>
-           // [ ] menu
-           <div key="menu"> children </div>
+           <Menu key="menu"> children </Menu>
            // [ ] blanket
            <div key="blanket" onClick=onClose />
          </>
