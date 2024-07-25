@@ -14,5 +14,5 @@ let make =
        | Some({label, value, _}) => <Country label value />
        | None => "Select a Country" |> React.string
      )}
-    <ChevronDown />
+    <Icons.DownArrow />
   </button>;
