@@ -38,7 +38,8 @@
  (deps
   (alias_rec ahrefs)
   (:vite ./vite.config.js)
-  (:index_html ./index.html))
+  (:index_html ./index.html)
+  (:index_css ./index.css))
  (action
   (system "../../node_modules/.bin/vite build"))
  (mode
