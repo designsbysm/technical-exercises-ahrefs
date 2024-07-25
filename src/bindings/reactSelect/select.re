@@ -8,11 +8,11 @@ external make:
     // ~hideSelectedOptions: bool=?,
     // ~isClearable: bool=?,
     ~menuIsOpen: bool=?,
-    ~onChange: 'country => unit=?,
-    ~options: array('country),
+    ~onChange: 'option => unit=?,
+    ~options: array('option),
     ~placeholder: string=?,
     ~unstyled: bool=?,
-    ~value: option('country)
+    ~value: option('option)
   ) =>
   React.element =
   "default";

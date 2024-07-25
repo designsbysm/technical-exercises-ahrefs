@@ -16,6 +16,12 @@
 //    );
 //  };
 
+type t;
+
+[@mel.module "react-select"] external components: t = "components";
+
+// let a =components.Option;
+
 [@mel.module "react-select"] [@react.component]
 external make: 'props => React.element = "components";
 

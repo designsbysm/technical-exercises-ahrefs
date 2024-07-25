@@ -10,6 +10,6 @@
 (library
  (name components)
  (modes melange)
- (libraries reason-react types)
+ (libraries bindings countrySelectComponents reason-react types)
  (preprocess
   (pps melange.ppx reason-react-ppx)))

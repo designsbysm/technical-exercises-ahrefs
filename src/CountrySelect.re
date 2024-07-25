@@ -68,10 +68,13 @@ let make =
   };
 
   let target =
-    <Components.Button selected onClick={_ => setIsOpen(prev => !prev)} />;
+    <Components.CountrySelect.Button
+      selected
+      onClick={_ => setIsOpen(prev => !prev)}
+    />;
 
   <div className>
-    <Components.Select
+    <Bindings.ReactSelect.Select
       onChange={selected => {
         setSelected(_ => selected |> Option.some);
         selected |> onChange;
@@ -80,8 +83,9 @@ let make =
       placeholder="Search..."
       value=selected
     />
-    <Components.Dropdown isOpen onClose={_ => setIsOpen(_ => false)} target>
-      <Components.Select
+    <Components.CountrySelect.Dropdown
+      isOpen onClose={_ => setIsOpen(_ => false)} target>
+      <Bindings.ReactSelect.Select
         autoFocus=true
         components
         // backspaceRemovesValue=false
@@ -99,6 +103,6 @@ let make =
         // unstyled=true
         value=selected
       />
-    </Components.Dropdown>
+    </Components.CountrySelect.Dropdown>
   </div>;
 };

@@ -18,8 +18,8 @@
 ; Melange environment.
 
 (library
- (name bindings)
+ (name countrySelectComponents)
  (modes melange)
- (libraries melange.js reactSelectBindings reason-react)
+ (libraries melange.js reason-react types)
  (preprocess
   (pps melange.ppx reason-react-ppx)))

@@ -1,5 +1,6 @@
 let style = ReactDOM.Style.make(~padding="4px", ~width="100%", ());
 
+// [ ] don't pass in selected?
 [@react.component]
 let make =
     (
@@ -10,7 +11,7 @@ let make =
     {selected
      |> (
        fun
-       | Some({label, value, _}) => <CountryItem label value />
+       | Some({label, value, _}) => <Country label value />
        | None => "Select a Country" |> React.string
      )}
     <ChevronDown />
