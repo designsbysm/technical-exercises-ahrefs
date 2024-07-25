@@ -5,9 +5,9 @@ let make =
       ~country as defaultCountry: option(string),
       ~onChange: Types.Country.t => unit,
     ) => {
-  let initialCountries: list(Types.Country.t) = [];
-  let (countries, setCountries) = React.useState(() => initialCountries);
+  let (countries, setCountries) = React.useState(() => []);
   let (selected, setSelected) = React.useState(() => None);
+  let (isOpen, setIsOpen) = React.useState(() => false);
 
   React.useEffect0(() => {
     Js.Promise.(
@@ -57,35 +57,48 @@ let make =
     (countries, defaultCountry),
   );
 
-  // [ ] move onChange
-  selected
-  |> (
-    fun
-    | Some(country) => country |> onChange
-    | None => ()
-  )
-  |> ignore;
+  let components = {
+    let obj = Js.Dict.empty();
 
-  // [ ] add react-select
+    Js.Dict.set(obj, "DropdownIndicator", React.null);
+    Js.Dict.set(obj, "IndicatorSeparator", React.null);
+    Js.Dict.set(obj, "Option", <Components.Option />);
+
+    Obj.magic(obj);
+  };
+
+  let target =
+    <Components.Button selected onClick={_ => setIsOpen(prev => !prev)} />;
+
   <div className>
-    {React.string("Selected: ")}
-    {selected
-     |> (
-       fun
-       | Some({amount, label, _}) =>
-         label ++ ": " ++ (amount |> Types.Amount.formatInKs)
-       | None => "none"
-     )
-     |> React.string}
-    {countries
-     |> List.map(({amount, label, value}: Types.Country.t) => {
-          <p key=value>
-            {label |> React.string}
-            {": " |> React.string}
-            {amount |> Types.Amount.formatInKs |> React.string}
-          </p>
-        })
-     |> Array.of_list
-     |> React.array}
+    <Components.Select
+      onChange={selected => {
+        setSelected(_ => selected |> Option.some);
+        selected |> onChange;
+      }}
+      options={countries |> Array.of_list}
+      placeholder="Search..."
+      value=selected
+    />
+    <Components.Dropdown isOpen onClose={_ => setIsOpen(_ => false)} target>
+      <Components.Select
+        autoFocus=true
+        components
+        // backspaceRemovesValue=false
+        controlShouldRenderValue=false
+        // hideSelectedOptions=false
+        // isClearable=false
+        menuIsOpen=true
+        onChange={selected => {
+          setSelected(_ => selected |> Option.some);
+          setIsOpen(_ => false);
+          selected |> onChange;
+        }}
+        options={countries |> Array.of_list}
+        placeholder="Search..."
+        // unstyled=true
+        value=selected
+      />
+    </Components.Dropdown>
   </div>;
 };
