@@ -1,6 +1,3 @@
-let style = ReactDOM.Style.make();
-// ~position="relative", ()
-
 [@react.component]
 let make =
     (
@@ -10,16 +7,15 @@ let make =
       ~onClose: React.Event.Mouse.t => unit,
       ~target: React.element,
     ) =>
-  <div className style>
+  <div className>
     target
     {isOpen
      |> (
        fun
        | true =>
          <>
-           <Menu key="menu"> children </Menu>
-           // [ ] blanket
-           <div key="blanket" onClick=onClose />
+           <Wrapper key="menu"> children </Wrapper>
+           <Blanket key="blanket" onClick=onClose />
          </>
        | false => React.null
      )}

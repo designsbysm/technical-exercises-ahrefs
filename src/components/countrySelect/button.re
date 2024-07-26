@@ -15,7 +15,9 @@ module Styles = {
       ~fontSize="14px",
       // ~justifyContent="space-between",
       ~padding="4px",
+      ~position="relative",
       ~textAlign="left",
+      ~zIndex="2",
       // ~width="100%",
       (),
     );

@@ -1,3 +1,5 @@
+type components = {children: React.element};
+
 [@react.component]
 let make =
     (
@@ -40,9 +42,14 @@ let make =
   let components = {
     let obj = Js.Dict.empty();
 
-    Js.Dict.set(obj, "DropdownIndicator", React.null);
-    Js.Dict.set(obj, "IndicatorSeparator", React.null);
-    // Js.Dict.set(obj, "Option", <Components.Option />);
+    Js.Dict.set(obj, "Control", ({children}) =>
+      <Components.CountrySelect.Control>
+        children
+      </Components.CountrySelect.Control>
+    );
+    Js.Dict.set(obj, "DropdownIndicator", _ => React.null);
+    // Js.Dict.set(obj, "DropdownIndicator", _ => <Icons.Search />);
+    Js.Dict.set(obj, "IndicatorSeparator", _ => React.null);
 
     Obj.magic(obj);
   };
