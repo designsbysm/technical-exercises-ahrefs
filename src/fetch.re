@@ -10,19 +10,13 @@ let countries = () => {
       |> then_(json => json |> Js.Json.decodeArray |> resolve)
       |> then_(opt => opt |> Belt.Option.getExn |> resolve)
       |> then_(items => {
-           items
-           |> Array.map(item =>
-                item |> Types.Country.fromJson |> Belt.Option.getExn
-              )
-           |> Array.to_list
-           |> resolve
-         })
-      |> then_(items => {
            let countries =
              items
-             |> List.sort((a: Types.Country.t, b: Types.Country.t) => {
-                  b.amount -. a.amount |> int_of_float
-                });
+             |> Array.map(item =>
+                  item |> Types.Country.fromJson |> Belt.Option.getExn
+                )
+             |> Array.to_list;
+
            setCountries(_ => countries);
            countries |> resolve;
          })

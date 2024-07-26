@@ -7,7 +7,18 @@ let make =
     ) => {
   let (selected, setSelected) = React.useState(() => None);
   let (isOpen, setIsOpen) = React.useState(() => false);
+
   let countries = Fetch.countries();
+  let countries =
+    React.useMemo1(
+      () => {
+        countries
+        |> List.sort((a: Types.Country.t, b: Types.Country.t) => {
+             b.amount -. a.amount |> int_of_float
+           })
+      },
+      [|countries|],
+    );
 
   React.useEffect2(
     () => {
