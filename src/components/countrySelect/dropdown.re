@@ -1,12 +1,5 @@
 [@react.component]
-let make =
-    (
-      ~children: React.element,
-      ~className: string,
-      ~isOpen: bool,
-      ~onClose: React.Event.Mouse.t => unit,
-      ~target: React.element,
-    ) =>
+let make = (~children, ~className, ~isOpen, ~onClose, ~target) =>
   <div className>
     target
     {isOpen

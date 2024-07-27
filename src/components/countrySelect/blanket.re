@@ -11,4 +11,4 @@ let style =
   );
 
 [@react.component]
-let make = (~onClick: React.Event.Mouse.t => unit) => <div onClick style />;
+let make = (~onClick) => <div onClick style />;

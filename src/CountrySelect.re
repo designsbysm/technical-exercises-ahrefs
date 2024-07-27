@@ -1,12 +1,7 @@
 type components = {children: React.element};
 
 [@react.component]
-let make =
-    (
-      ~className: string,
-      ~country as defaultCountry: option(string),
-      ~onChange: Types.Country.t => unit,
-    ) => {
+let make = (~className, ~country as defaultCountry, ~onChange) => {
   let (selected, setSelected) = React.useState(() => None);
   let (isOpen, setIsOpen) = React.useState(() => false);
 

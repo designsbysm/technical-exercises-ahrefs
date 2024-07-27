@@ -11,4 +11,4 @@ let style =
   );
 
 [@react.component]
-let make = (~children: React.element) => <div style> children </div>;
+let make = (~children) => <div style> children </div>;

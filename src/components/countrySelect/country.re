@@ -8,7 +8,7 @@ module K = {
     );
 
   [@react.component]
-  let make = (~amount: float) =>
+  let make = (~amount) =>
     <span style> {amount |> Types.Amount.formatInKs |> React.string} </span>;
 };
 
@@ -40,7 +40,7 @@ module Styles = {
 };
 
 [@react.component]
-let make = (~amount: option(float)=?, ~label: string, ~value: string) => {
+let make = (~amount=?, ~label, ~value) => {
   let className = "fi fi-" ++ value;
 
   <div style=Styles.wrapper>

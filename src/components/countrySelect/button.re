@@ -24,7 +24,7 @@ module Styles = {
 };
 
 [@react.component]
-let make = (~children: React.element, ~onClick: React.Event.Mouse.t => unit) =>
+let make = (~children, ~onClick) =>
   <button onClick style=Styles.button>
     <div style=Styles.country> children </div>
     <div style=Styles.arrow> <Icons.DownArrow /> </div>

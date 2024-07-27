@@ -27,7 +27,7 @@ module Styles = {
 
 // FIXME: looks correct but clicking placeholder remove input focus
 [@react.component]
-let make = (~children: React.element) =>
+let make = (~children) =>
   <div style=Styles.wrapper>
     <div key="icon" style=Styles.icon> <Icons.Search /> </div>
     children
