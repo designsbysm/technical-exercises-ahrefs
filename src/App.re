@@ -9,12 +9,13 @@ module App = {
 };
 
 ReactDOM.querySelector("#root")
-|> (
-  fun
-  | Some(rootElement) => {
-      let root = ReactDOM.Client.createRoot(rootElement);
-      ReactDOM.Client.render(root, <App />);
-    }
-  | None =>
-    Js.Console.error("Failed to start React: couldn't find the #root element")
-);
+->(
+    fun
+    | Some(rootElement) =>
+      ReactDOM.Client.createRoot(rootElement)
+      ->ReactDOM.Client.render(<App />)
+    | None =>
+      Js.Console.error(
+        "Failed to start React: couldn't find the #root element",
+      )
+  );

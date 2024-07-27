@@ -10,10 +10,9 @@ let decodeField = (~label, dict) =>
   |> Option.map(Js.Json.decodeString)
   |> Option.join;
 
-let fromJson = json => {
-  let result = json |> Js.Json.decodeObject;
-
-  result
+let fromJson = json =>
+  json
+  |> Js.Json.decodeObject
   |> (
     fun
     | Some(dict) => {
@@ -28,4 +27,3 @@ let fromJson = json => {
       }
     | None => None
   );
-};

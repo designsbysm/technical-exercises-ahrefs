@@ -13,12 +13,11 @@ let make =
   let countries = Fetch.countries();
   let countries =
     React.useMemo1(
-      () => {
+      () =>
         countries
-        |> List.sort((a: Types.Country.t, b: Types.Country.t) => {
+        |> List.sort((a: Types.Country.t, b: Types.Country.t) =>
              b.amount -. a.amount |> int_of_float
-           })
-      },
+           ),
       [|countries|],
     );
 
