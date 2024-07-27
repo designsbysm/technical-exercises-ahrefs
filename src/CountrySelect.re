@@ -1,5 +1,3 @@
-type components = {children: React.element};
-
 [@react.component]
 let make = (~className, ~country as defaultCountry, ~onChange) => {
   let (selected, setSelected) = React.useState(() => None);
@@ -36,16 +34,68 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
   let components = {
     let obj = Js.Dict.empty();
 
-    Js.Dict.set(obj, "Control", ({children}) =>
-      <Components.CountrySelect.Control>
-        children
-      </Components.CountrySelect.Control>
-    );
-    Js.Dict.set(obj, "DropdownIndicator", _ => React.null);
-    // Js.Dict.set(obj, "DropdownIndicator", _ => <Icons.Search />);
+    Js.Dict.set(obj, "DropdownIndicator", _ => <Icons.Search />);
     Js.Dict.set(obj, "IndicatorSeparator", _ => React.null);
 
     Obj.magic(obj);
+  };
+
+  let styles: Components.CountrySelect.Select.styles = {
+    control: (style, _) =>
+      ReactDOM.Style.combine(
+        style,
+        ReactDOM.Style.make(
+          ~borderBottom="1px solid rgba(0, 0, 0, 0.08)",
+          ~borderRadius="3px 3px 0 0",
+          ~flexDirection="row-reverse",
+          ~fontSize="14px",
+          ~marginBottom="5px",
+          ~paddingLeft="12px",
+          (),
+        ),
+      ),
+    input: (style, _) =>
+      ReactDOM.Style.combine(
+        style,
+        ReactDOM.Style.make(~marginLeft="10px", ()),
+      ),
+    menu: (style, _) =>
+      ReactDOM.Style.combine(
+        style,
+        ReactDOM.Style.make(
+          ~boxShadow="none",
+          ~borderRadius="0 0 3px 3px",
+          ~marginTop="0",
+          ~position="relative",
+          (),
+        ),
+      ),
+    menuList: (style, _) =>
+      ReactDOM.Style.combine(
+        style,
+        ReactDOM.Style.make(~maxHeight="310px", ()),
+      ),
+    option: (style, state) =>
+      ReactDOM.Style.combine(
+        style,
+        ReactDOM.Style.make(
+          ~backgroundColor=
+            (state.isSelected, state.isFocused)
+            |> (
+              fun
+              | (true, _) => "#ffdbb3"
+              | (false, true) => "rgba(255, 219, 179, 0.5)"
+              | _ => "transparent"
+            ),
+          ~padding="5px 10px",
+          (),
+        ),
+      ),
+    placeholder: (style, _) =>
+      ReactDOM.Style.combine(
+        style,
+        ReactDOM.Style.make(~color="#ababab", ~marginLeft="10px", ()),
+      ),
   };
 
   let target =
@@ -59,28 +109,38 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
        )}
     </Components.CountrySelect.Button>;
 
+  // [ ] move isOpen & target inside Dropdown?
   <Components.CountrySelect.Dropdown
     className isOpen onClose={_ => setIsOpen(_ => false)} target>
-    <Components.CountrySelect.Select
-      autoFocus=true
-      components
-      // backspaceRemovesValue=false
-      controlShouldRenderValue=false
-      // hideSelectedOptions=false
-      // isClearable=false
-      formatOptionLabel={({amount, label, value}: Types.Country.t) =>
-        <Components.CountrySelect.Country amount label value />
-      }
-      menuIsOpen=true
-      onChange={selected => {
-        setSelected(_ => selected |> Option.some);
-        setIsOpen(_ => false);
-        selected |> onChange;
-      }}
-      options={countries |> Array.of_list}
-      placeholder="Search..."
-      // unstyled=true
-      value=selected
-    />
-  </Components.CountrySelect.Dropdown>;
+    // [ ] move autoFocus, backspaceRemovesValue, components, controlShouldRenderValue, hideSelectedOptions, isClearable, formatOptionLabel, menuIsOpen, placeholder, styles, & unstyled inside Select?
+
+      <Components.CountrySelect.Select
+        autoFocus=true
+        components
+        controlShouldRenderValue=false
+        formatOptionLabel={({amount, label, value}: Types.Country.t) =>
+          <Components.CountrySelect.Country amount label value />
+        }
+        menuIsOpen=true
+        onChange={selected => {
+          setSelected(_ => selected |> Option.some);
+          setIsOpen(_ => false);
+          selected |> onChange;
+        }}
+        onKeyDown={e =>
+          e
+          |> React.Event.Keyboard.keyCode
+          |> (
+            fun
+            | 27 => setIsOpen(_ => false)
+            | _ => ()
+          )
+        }
+        options={countries |> Array.of_list}
+        placeholder="Search..."
+        styles
+        unstyled=true
+        value=selected
+      />
+    </Components.CountrySelect.Dropdown>;
 };
