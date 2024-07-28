@@ -14,6 +14,7 @@ type styles = {
   control: styleFn,
   input: styleFn,
   menu: styleFn,
+  noOptionsMessage: styleFn,
   option: styleFn,
   placeholder: styleFn,
 };

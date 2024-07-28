@@ -94,6 +94,11 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
           (),
         ),
       ),
+    noOptionsMessage: (style, _) =>
+      ReactDOM.Style.combine(
+        style,
+        ReactDOM.Style.make(~fontSize="14px", ~paddingBottom="4px", ()),
+      ),
     option: (style, state) =>
       ReactDOM.Style.combine(
         style,
