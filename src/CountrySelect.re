@@ -64,7 +64,7 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
     Obj.magic(obj);
   };
 
-  let styles: Components.CountrySelect.Select.styles = {
+  let styles: Bindings.ReactSelect.styles = {
     control: (style, _) =>
       ReactDOM.Style.combine(
         style,
@@ -133,7 +133,7 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
     className isOpen onClose={_ => setIsOpen(_ => false)} target>
     // [ ] move autoFocus, backspaceRemovesValue, components, controlShouldRenderValue, hideSelectedOptions, isClearable, formatOptionLabel, menuIsOpen, placeholder, styles, & unstyled inside Select?
 
-      <Components.CountrySelect.Select
+      <Bindings.ReactSelect
         autoFocus=true
         components
         controlShouldRenderValue=false

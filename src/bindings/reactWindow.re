@@ -1,3 +1,5 @@
+// [ ] add interface to hide childre
+
 type children = {
   index: int,
   style: ReactDOM.Style.t,
