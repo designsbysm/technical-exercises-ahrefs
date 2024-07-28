@@ -11,4 +11,4 @@ let style =
   );
 
 [@react.component]
-let make = (~children) => <div style> children </div>;
+let make = (~children, ~onKeyDown) => <div onKeyDown style> children </div>;

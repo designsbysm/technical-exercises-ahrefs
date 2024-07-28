@@ -1,5 +1,5 @@
 [@react.component]
-let make = (~children, ~className, ~isOpen, ~onClose, ~target) =>
+let make = (~children, ~className, ~isOpen, ~onClose, ~onKeyDown, ~target) =>
   <div className>
     target
     {isOpen
@@ -7,7 +7,7 @@ let make = (~children, ~className, ~isOpen, ~onClose, ~target) =>
        fun
        | true =>
          <>
-           <Wrapper key="menu"> children </Wrapper>
+           <Wrapper key="menu" onKeyDown> children </Wrapper>
            <Blanket key="blanket" onClick=onClose />
          </>
        | false => React.null

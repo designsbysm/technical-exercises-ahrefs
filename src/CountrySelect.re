@@ -3,10 +3,17 @@ type component = {
   maxHeight: int,
 };
 
+// QUESTION: is there a better way?
+let scrollToItem: (Js.nullable(Dom.element), int) => unit = [%mel.raw
+  "(element, index) => element.scrollToItem(index)"
+];
+
 [@react.component]
 let make = (~className, ~country as defaultCountry, ~onChange) => {
   let (selected, setSelected) = React.useState(() => None);
   let (isOpen, setIsOpen) = React.useState(() => false);
+  let listRef = React.useRef(Js.Nullable.null);
+  let scrollIndex = React.useRef(0);
 
   let countries = Fetch.countries();
   let countries =
@@ -34,16 +41,6 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
       None;
     },
     (countries, defaultCountry),
-  );
-
-  let listRef = React.useRef(Js.Nullable.null);
-  // [ ] remove
-  React.useEffect1(
-    () => {
-      listRef |> Js.log;
-      None;
-    },
-    [|listRef|],
   );
 
   let components = {
@@ -123,7 +120,26 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
   };
 
   let target =
-    <Components.CountrySelect.Button onClick={_ => setIsOpen(prev => !prev)}>
+    <Components.CountrySelect.Button
+      onClick={_ => {
+        setIsOpen(prev => !prev);
+        scrollIndex.current =
+          selected
+          |> (
+            fun
+            | Some(selected) =>
+              countries
+              |> List.find_index((country: Types.Country.t) =>
+                   country.value == selected.value
+                 )
+            | None => None
+          )
+          |> (
+            fun
+            | Some(index) => index
+            | None => 0
+          );
+      }}>
       {selected
        |> (
          fun
@@ -135,7 +151,34 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
 
   // [ ] move isOpen & target inside Dropdown?
   <Components.CountrySelect.Dropdown
-    className isOpen onClose={_ => setIsOpen(_ => false)} target>
+    className
+    isOpen
+    onClose={_ => setIsOpen(_ => false)}
+    onKeyDown={e => {
+      let currentIndex = scrollIndex.current;
+      let newIndex =
+        e
+        |> React.Event.Keyboard.key
+        |> (
+          fun
+          | "ArrowDown" => currentIndex + 1
+          | "ArrowUp" => currentIndex - 1
+          | "PageDown" => currentIndex + 10
+          | "PageUp" => currentIndex - 10
+          | _ => currentIndex
+        )
+        // if we go out of bounds, we should loop around
+        |> (
+          fun
+          | index when index < 0 => (countries |> List.length) - 1
+          | index when index >= (countries |> List.length) => 0
+          | index => index
+        );
+
+      scrollToItem(listRef.current, newIndex);
+      scrollIndex.current = newIndex;
+    }}
+    target>
     // [ ] move autoFocus, backspaceRemovesValue, components, controlShouldRenderValue, hideSelectedOptions, isClearable, formatOptionLabel, menuIsOpen, placeholder, styles, & unstyled inside Select?
 
       <Bindings.ReactSelect
@@ -153,16 +196,17 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
         }}
         onKeyDown={e =>
           e
-          |> React.Event.Keyboard.keyCode
+          |> React.Event.Keyboard.key
           |> (
             fun
-            | 27 => setIsOpen(_ => false)
+            | "Escape" => setIsOpen(_ => false)
             | _ => ()
           )
         }
         options={countries |> Array.of_list}
         placeholder="Search..."
         styles
+        tabSelectsValue=false
         unstyled=true
         value=selected
       />

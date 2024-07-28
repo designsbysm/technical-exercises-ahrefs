@@ -32,6 +32,7 @@ external make:
     ~options: array('value),
     ~placeholder: string=?,
     ~styles: styles=?,
+    ~tabSelectsValue: bool=?,
     ~unstyled: bool=?,
     ~value: option('value)
   ) =>
