@@ -1,15 +1,10 @@
-// [ ] add interfact to hide state, styleFn
-
 type state = {
   isFocused: bool,
   isSelected: bool,
 };
 
-type styleFn = (ReactDOM.Style.t, state) => ReactDOM.Style.t;
+type styleFn = option((ReactDOM.Style.t, state) => ReactDOM.Style.t);
 
-// QUESTION: How do we make these optional without needing to define each one?
-// QUESTION: No { control: None, input: Some(styleFn), ...}
-// IDEA: Createa a function (~control=? ...) => styles{ option(), ...}
 type styles = {
   control: styleFn,
   input: styleFn,
@@ -17,6 +12,24 @@ type styles = {
   noOptionsMessage: styleFn,
   option: styleFn,
   placeholder: styleFn,
+};
+
+let makeStyles =
+    (
+      ~control=?,
+      ~input=?,
+      ~menu=?,
+      ~noOptionsMessage=?,
+      ~option=?,
+      ~placeholder=?,
+      (),
+    ) => {
+  control,
+  input,
+  menu,
+  noOptionsMessage,
+  option,
+  placeholder,
 };
 
 [@mel.module "react-select"] [@react.component]

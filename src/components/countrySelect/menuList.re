@@ -1,4 +1,4 @@
-// QUESTION: is there a better way to get the value of the child element?
+// QUESTION: is there a better way than %mel.raw?
 let getValue: React.element => string = [%mel.raw
   "element => element.props?.value"
 ];

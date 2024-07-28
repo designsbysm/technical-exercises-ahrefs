@@ -22,15 +22,15 @@
 ; Provides the source location of the project, typically a GitHub repository.
 
 (source
- (github your-username/ahrefs))
+ (github designsbysm/technical-exercises-ahrefs-reasonml))
 
 ; Lists the authors of the project.
 
-(authors "Your Name <your.email@gmail.com>")
+(authors "Scott A. Matthews <scott@designsbysm.com>")
 
 ; Specifies the maintainers of the project, which can be different from authors.
 
-(maintainers "Your Name <your.email@gmail.com>")
+(maintainers "Scott A. Matthews <scott@designsbysm.com>")
 
 ; Declares the license type under which the project is distributed.
 
@@ -38,14 +38,16 @@
 
 ; Provides a link to the project's documentation.
 
-(documentation https://github.com/your-username/ahrefs)
+(documentation
+ https://github.com/designsbysm/technical-exercises-ahrefs-reasonml)
 
 ; The package stanza defines the configuration for an OPAM package.
 
 (package
  (name ahrefs)
- (synopsis "Enter a synopsis of your app here")
- (description "Enter a description of your app here")
+ (synopsis
+  "Country selector componet built with ReasonML/ReactReason/Melange")
+ (description "Demo React app to showcase a component built with ReasonML")
  ; Allows the package to be empty, which can be useful during development.
  (allow_empty)
  ; Lists the dependencies of the package along with version constraints.

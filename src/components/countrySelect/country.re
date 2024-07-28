@@ -1,3 +1,9 @@
+// QUESTION: How do we import css from node_modules
+// This can't access the css file
+// [%%mel.raw {|import "/node_modules/flag-icons/css/flag-icons.min.css"|}];
+// This gets the file text, but the .svg are copied into dist/assets
+// [@mel.module "flag-icons"] external css: Js.t({..}) = "default";
+
 module K = {
   let style =
     ReactDOM.Style.make(
