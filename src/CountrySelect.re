@@ -1,3 +1,8 @@
+type component = {
+  children: array(React.element),
+  maxHeight: int,
+};
+
 [@react.component]
 let make = (~className, ~country as defaultCountry, ~onChange) => {
   let (selected, setSelected) = React.useState(() => None);
@@ -31,11 +36,30 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
     (countries, defaultCountry),
   );
 
+  let listRef = React.useRef(Js.Nullable.null);
+  // [ ] remove
+  React.useEffect1(
+    () => {
+      listRef |> Js.log;
+      None;
+    },
+    [|listRef|],
+  );
+
   let components = {
     let obj = Js.Dict.empty();
 
     Js.Dict.set(obj, "DropdownIndicator", _ => <Icons.Search />);
     Js.Dict.set(obj, "IndicatorSeparator", _ => React.null);
+    Js.Dict.set(obj, "MenuList", ({children, maxHeight}) =>
+      {
+        "children": children,
+        "listRef": listRef,
+        "maxHeight": maxHeight,
+        "selected": selected,
+      }
+      |> Components.CountrySelect.MenuList.make
+    );
 
     Obj.magic(obj);
   };
@@ -69,11 +93,6 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
           ~position="relative",
           (),
         ),
-      ),
-    menuList: (style, _) =>
-      ReactDOM.Style.combine(
-        style,
-        ReactDOM.Style.make(~maxHeight="310px", ()),
       ),
     option: (style, state) =>
       ReactDOM.Style.combine(

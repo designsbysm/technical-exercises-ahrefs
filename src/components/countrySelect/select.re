@@ -13,7 +13,6 @@ type styles = {
   control: style,
   input: style,
   menu: style,
-  menuList: style,
   option: style,
   placeholder: style,
 };
