@@ -111,7 +111,8 @@ let make = (~className, ~country as defaultCountry, ~onChange) => {
         |> Utils.Keyboard.getKey
         |> (
           fun
-          | Some(Utils.Keyboard.Escape) => setIsOpen(_ => false)
+          | Some(Utils.Keyboard.Escape)
+          | Some(Tab) => setIsOpen(_ => false)
           | _ => ()
         )
       }

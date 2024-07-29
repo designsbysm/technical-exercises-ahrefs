@@ -4,7 +4,8 @@ type key =
   | ArrowUp
   | Escape
   | PageDown
-  | PageUp;
+  | PageUp
+  | Tab;
 
 let fromString =
   fun
@@ -13,6 +14,7 @@ let fromString =
   | "Escape" => Escape |> Option.some
   | "PageDown" => PageDown |> Option.some
   | "PageUp" => PageUp |> Option.some
+  | "Tab" => Tab |> Option.some
   | _ => None;
 
 let getKey = e => e |> React.Event.Keyboard.key |> fromString;
