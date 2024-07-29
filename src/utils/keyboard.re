@@ -1,4 +1,3 @@
-[@mel.deriving accessors]
 type key =
   | ArrowDown
   | ArrowUp
