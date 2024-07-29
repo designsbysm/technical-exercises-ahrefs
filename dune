@@ -37,9 +37,10 @@
   (dir dist))
  (deps
   (alias_rec ahrefs)
-  (:vite ./vite.config.js)
+  (:favicon_ico ./favicon.ico)
   (:index_html ./index.html)
-  (:index_css ./index.css))
+  (:index_css ./index.css)
+  (:vite ./vite.config.js))
  (action
   (system "../../node_modules/.bin/vite build"))
  (mode
