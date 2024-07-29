@@ -1,6 +1,3 @@
 (library
  (name types)
- (modes melange)
- (libraries melange.js)
- (preprocess
-  (pps melange.ppx)))
+ (modes melange))

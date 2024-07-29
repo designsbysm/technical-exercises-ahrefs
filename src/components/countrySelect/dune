@@ -1,6 +1,6 @@
 (library
  (name countrySelectComponents)
  (modes melange)
- (libraries bindings icons melange.js reason-react types utils)
+ (libraries bindings icons types utils)
  (preprocess
   (pps melange.ppx reason-react-ppx)))
