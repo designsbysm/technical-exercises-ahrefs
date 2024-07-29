@@ -1,6 +1,6 @@
 // QUESTION: is there a better way?
 let scrollToItem: (Js.nullable(Dom.element), int) => unit = [%mel.raw
-  "(element, index) => element.scrollToItem(index)"
+  "(element, index) => element?.scrollToItem(index)"
 ];
 
 [@react.component]
