@@ -62,6 +62,12 @@
    (>= 3.11.0))
   (reason-react
    (>= 0.13.0))
+  (ocamlformat
+   (>= 0.26.2))
+  (ocaml-lsp-server
+   (>= 1.18.0))
+  ; (opam-check-npm-deps
+  ;  (>= 2.0.0))
   reason-react-ppx)
  ; Tags to categorize or label the package, useful for searches and indexing.
  (tags
