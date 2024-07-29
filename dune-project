@@ -22,7 +22,7 @@
 ; Provides the source location of the project, typically a GitHub repository.
 
 (source
- (github designsbysm/technical-exercises-ahrefs-reasonml))
+ (github designsbysm/technical-exercises-ahrefs))
 
 ; Lists the authors of the project.
 
@@ -38,8 +38,7 @@
 
 ; Provides a link to the project's documentation.
 
-(documentation
- https://github.com/designsbysm/technical-exercises-ahrefs-reasonml)
+(documentation https://github.com/designsbysm/technical-exercises-ahrefs)
 
 ; The package stanza defines the configuration for an OPAM package.
 

@@ -6,11 +6,10 @@ maintainer: ["Scott A. Matthews <scott@designsbysm.com>"]
 authors: ["Scott A. Matthews <scott@designsbysm.com>"]
 license: "MIT"
 tags: ["reasonml," "ocaml," "melange"]
-homepage:
-  "https://github.com/designsbysm/technical-exercises-ahrefs-reasonml"
-doc: "https://github.com/designsbysm/technical-exercises-ahrefs-reasonml"
+homepage: "https://github.com/designsbysm/technical-exercises-ahrefs"
+doc: "https://github.com/designsbysm/technical-exercises-ahrefs"
 bug-reports:
-  "https://github.com/designsbysm/technical-exercises-ahrefs-reasonml/issues"
+  "https://github.com/designsbysm/technical-exercises-ahrefs/issues"
 depends: [
   "dune" {>= "3.14" & >= "3.14"}
   "melange" {>= "3.0.0-51"}
@@ -35,5 +34,4 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo:
-  "git+https://github.com/designsbysm/technical-exercises-ahrefs-reasonml.git"
+dev-repo: "git+https://github.com/designsbysm/technical-exercises-ahrefs.git"
