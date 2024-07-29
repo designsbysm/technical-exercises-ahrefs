@@ -1,9 +1,12 @@
 // QUESTION: How do we import css from node_modules
-// This can't access the css file
-// [%%mel.raw {|import "/node_modules/flag-icons/css/flag-icons.min.css"|}];
+// This gets an error from Vite. Default and named imports from CSS files are deprecated. Use the ?inline query instead. For example: import FlagIconsMinCss from "../../../../../../node_modules/flag-icons/css/flag-icons.min.css?inline"
+// Adding `?inline` to the end of the path removes the icons
+// [@mel.module
+//   "../../../../../../node_modules/flag-icons/css/flag-icons.min.css"
+// ]
+// external _css: unit = "default";
 // This gets the file text, but the .svg are copied into dist/assets
 // [@mel.module "flag-icons"] external css: Js.t({..}) = "default";
-
 module K = {
   let style =
     ReactDOM.Style.make(
